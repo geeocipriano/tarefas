@@ -2,7 +2,7 @@
   <main class="main-login">
     <div class="left-login">
       <h1>Faça login<br />Para visualizar as tarefas</h1>
-      <img src="../assets/task.svg" alt="task image" class="left-login-image" >
+      <img src="../assets/task.svg" alt="task image" class="left-login-image" />
     </div>
     <div class="right-login">
       <div class="card-login">
@@ -15,18 +15,20 @@
           <label for="senha">Senha</label>
           <input type="password" name="senha" placeholder="Senha" />
         </div>
-        <button class="btn-login">Login</button>
+        <router-link to="/home" class="btn-login"><button>Login</button></router-link>
       </div>
     </div>
   </main>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "Login",
+};
 </script>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+<style scope="this api replaced by slot-scope in 2.5.0+">
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 * {
   margin: 0;
   font-family: "Noto Sans", sans-serif;
@@ -51,8 +53,9 @@ export default {};
   color: #77ffc0;
   font-size: 3vw;
 }
-.left-login-image{
+.left-login-image {
   width: 35vw;
+  height: 50vh;
 }
 
 .right-login {
@@ -103,14 +106,13 @@ export default {};
   color: #f0ffffde;
   margin-bottom: 10px;
 }
-.textfield > input::placeholder{
+.textfield > input::placeholder {
   color: #f0ffff94;
-
 }
-.btn-login{
+.btn-login {
   width: 100%;
   padding: 16px 0px;
-  margin:25px;
+  margin: 25px;
   border: none;
   outline: none;
   text-transform: uppercase;
@@ -122,27 +124,26 @@ export default {};
   box-shadow: 0px 10px 40px -12px #00ff8052;
 }
 
-
-@media only screen and (max-width:950px){
-  .card-login{
+@media only screen and (max-width: 950px) {
+  .card-login {
     width: 85%;
   }
 }
-@media only screen and (max-width:600px){
-  .main-login{
+@media only screen and (max-width: 600px) {
+  .main-login {
     flex-direction: column;
   }
   .left-login > h1 {
     display: none;
   }
-  .left-login{
+  .left-login {
     width: 100%;
     height: auto;
   }
-  .left-login-image{
+  .left-login-image {
     width: 70vw;
   }
-  .right-login{
+  .right-login {
     width: 100%;
     height: auto;
   }

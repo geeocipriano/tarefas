@@ -1,23 +1,28 @@
 <template>
-  <v-app>
-    <v-main>
-      <Login/>
-    </v-main>
-  </v-app>
+  <div id="app">
+    <router-view />
+  </div>
 </template>
+./views/Login.vue
+<style lang="scss">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
-<script>
-import Login from './components/Login.vue'
+#nav {
+  padding: 30px;
 
-export default {
-  name: 'App',
+  a {
+    font-weight: bold;
+    color: #2c3e50;
 
-  components: {
-    Login
-  },
-
-  data: () => ({
-    //
-  }),
-};
-</script>
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}
+</style>
