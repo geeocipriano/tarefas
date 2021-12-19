@@ -31,8 +31,57 @@
         <v-btn color="warning" dark class="mx-1">
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
-        <v-btn color="warning" dark class="mx-1">
+        <v-btn color="warning" dark class="mx-1" @click.stop="dialog = true">
           <v-icon>mdi-plus-circle</v-icon>
+          <v-dialog v-model="dialog" max-width="600" dark>
+            <v-card>
+              <v-card-title class="text-h5"> Cadastro de Tarefa </v-card-title>
+              <v-text-field
+                required
+                class="mx-3 mb-n4"
+                solo
+                label="Razão Social"
+              ></v-text-field>
+              <v-text-field
+                required
+                class="mx-3 mb-n4"
+                solo
+                label="Nome Fantasia"
+              ></v-text-field>
+              <v-text-field required class="mx-3 mb-n4" solo label="CNPJ"></v-text-field>
+              <div class="d-flex mx-5">
+                <v-switch
+                  v-model="ex11"
+                  label="XML"
+                  color="orange"
+                  value="orange"
+                  hide-detail
+                  class="mr-3"
+                ></v-switch>
+                <v-switch
+                  v-model="ex11"
+                  label="Sintegra"
+                  color="orange"
+                  value="orange"
+                  hide-detail
+                  class="mr-3"
+                ></v-switch>
+                <v-switch
+                  v-model="ex11"
+                  label="Procuração"
+                  color="orange"
+                  value="orange"
+                  hide-detail
+                  class="mr-3"
+                ></v-switch>
+              </div>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+
+                <v-btn color="warning" dark @click="dialog = false"> Salvar </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-btn>
       </v-col>
     </v-app-bar>
@@ -103,11 +152,12 @@ export default {
   data: () => ({
     drawer: null,
     items: [
-      { title: "Dashboard", icon: "mdi-view-dashboard", color: "#F78812" },
-      { title: "Photos", icon: "mdi-image" },
-      { title: "About", icon: "mdi-help-box" },
+      { title: "Executando", icon: "mdi-view-dashboard", color: "#F78812" },
+      { title: "Concluidas", icon: "mdi-image" },
+      { title: "Tarefas", icon: "mdi-help-box" },
     ],
     show: false,
+    dialog: false,
   }),
 };
 </script>
