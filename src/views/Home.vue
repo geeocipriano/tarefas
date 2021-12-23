@@ -41,44 +41,41 @@
                 class="mx-3 mb-n4"
                 solo
                 label="Razão Social"
+                v-model="inpSocial"
               ></v-text-field>
               <v-text-field
                 required
                 class="mx-3 mb-n4"
                 solo
                 label="Nome Fantasia"
+                v-model="inpFantasia"
               ></v-text-field>
-              <v-text-field required class="mx-3 mb-n4" solo label="CNPJ"></v-text-field>
-              <div class="d-flex mx-5">
-                <v-switch
-                  v-model="ex11"
-                  label="XML"
-                  color="orange"
-                  value="orange"
-                  hide-detail
-                  class="mr-3"
-                ></v-switch>
-                <v-switch
-                  v-model="ex11"
+              <v-text-field
+                required
+                class="mx-3 mb-n4"
+                solo
+                label="CNPJ"
+                v-model="inpCnpj"
+              ></v-text-field>
+              <div class="d-flex justify-space-between mx-3">
+                <v-checkbox v-model="checkXml" label="XML" class="mr-2"></v-checkbox>
+                <v-checkbox
+                  v-model="checkSintegra"
                   label="Sintegra"
-                  color="orange"
-                  value="orange"
-                  hide-detail
-                  class="mr-3"
-                ></v-switch>
-                <v-switch
-                  v-model="ex11"
+                  class="mr-2"
+                ></v-checkbox>
+                <v-checkbox
+                  v-model="checkProc"
                   label="Procuração"
-                  color="orange"
-                  value="orange"
-                  hide-detail
-                  class="mr-3"
-                ></v-switch>
+                  class="mr-2"
+                ></v-checkbox>
               </div>
               <v-card-actions>
                 <v-spacer></v-spacer>
 
-                <v-btn color="warning" dark @click="dialog = false"> Salvar </v-btn>
+                <v-btn color="warning" dark @click="dialog = false" v-on:click="addTask">
+                  Salvar
+                </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -89,57 +86,30 @@
     <v-main>
       <v-row dense>
         <v-col :cols="12">
-          <v-card class="ma-2" color="#292D30" dark>
-            <v-card-title> Top western road trips </v-card-title>
+          <v-card
+            class="ma-2 d-flex justify-space-between"
+            color="#292D30"
+            dark
+            v-for="task in tasks"
+            v-bind:key="task.id"
+          >
+            <div class="d-flex align-center">
+              <div>
+                <v-card-title class="text-h6"> {{ task.rsocial }} </v-card-title>
+                <v-card-subtitle class="text-caption">{{ task.cnpj }}</v-card-subtitle>
+              </div>
+              <v-divider vertical class="mx-3"></v-divider>
+              <v-card-subtitle>{{ task.nfantasia }}</v-card-subtitle>
+            </div>
+
             <v-card-actions>
-              <v-btn color="orange lighten-2" text> Explore </v-btn>
-
-              <v-spacer></v-spacer>
-
-              <v-btn icon @click="show = !show">
-                <v-icon>{{ show ? "mdi-chevron-up" : "mdi-chevron-down" }}</v-icon>
+              <v-chip class="ma-2" v-if="task.docxml"> XML </v-chip>
+              <v-chip class="ma-2" v-if="task.sintegra"> Sintegra </v-chip>
+              <v-chip class="ma-2" v-if="task.proc"> Procuração </v-chip>
+              <v-btn color="orange" class="ml-6">
+                <v-icon>mdi-ballot</v-icon>
               </v-btn>
             </v-card-actions>
-
-            <v-expand-transition>
-              <div v-show="show">
-                <v-divider></v-divider>
-
-                <v-card-text>
-                  I'm a thing. But, like most politicians, he promised more than he could
-                  deliver. You won't have time for sleeping, soldier, not with all the bed
-                  making you'll be doing. Then we'll go with that data file! Hey, you add
-                  a one and two zeros to that or we walk! You're going to do his laundry?
-                  I've got to find a way to escape.
-                </v-card-text>
-              </div>
-            </v-expand-transition>
-          </v-card>
-          <v-card class="ma-2" color="#292D30" dark>
-            <v-card-title> Top western road trips </v-card-title>
-            <v-card-actions>
-              <v-btn color="orange lighten-2" text> Explore </v-btn>
-
-              <v-spacer></v-spacer>
-
-              <v-btn icon @click="show = !show">
-                <v-icon>{{ show ? "mdi-chevron-up" : "mdi-chevron-down" }}</v-icon>
-              </v-btn>
-            </v-card-actions>
-
-            <v-expand-transition>
-              <div v-show="show">
-                <v-divider></v-divider>
-
-                <v-card-text>
-                  I'm a thing. But, like most politicians, he promised more than he could
-                  deliver. You won't have time for sleeping, soldier, not with all the bed
-                  making you'll be doing. Then we'll go with that data file! Hey, you add
-                  a one and two zeros to that or we walk! You're going to do his laundry?
-                  I've got to find a way to escape.
-                </v-card-text>
-              </div>
-            </v-expand-transition>
           </v-card>
         </v-col>
       </v-row>
@@ -151,6 +121,23 @@
 export default {
   data: () => ({
     drawer: null,
+    inpSocial: "",
+    inpFantasia: "",
+    inpCnpj: "",
+    checkXml: false,
+    checkSintegra: false,
+    checkProc: false,
+    tasks: [
+      {
+        id: 1,
+        rsocial: "Correta Soluções Tributarias",
+        nfantasia: "Correta",
+        cnpj: 199000101,
+        docxml: true,
+        sintegra: true,
+        proc: false,
+      },
+    ],
     items: [
       { title: "Executando", icon: "mdi-view-dashboard", color: "#F78812" },
       { title: "Concluidas", icon: "mdi-image" },
@@ -159,5 +146,23 @@ export default {
     show: false,
     dialog: false,
   }),
+  methods: {
+    addTask() {
+      this.tasks.push({
+        rsocial: this.inpSocial,
+        nfantasia: this.inpFantasia,
+        cnpj: this.inpCnpj,
+        docxml: this.checkXml,
+        sintegra: this.checkSintegra,
+        proc: this.checkProc,
+      });
+      this.inpSocial = "";
+      this.inpFantasia = "";
+      this.inpCnpj = "";
+      this.checkXml = false;
+      this.checkSintegra = false;
+      this.checkProc = false;
+    },
+  },
 };
 </script>
