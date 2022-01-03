@@ -3,7 +3,6 @@
     <router-view />
   </div>
 </template>
-./views/Login.vue
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
