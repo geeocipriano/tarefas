@@ -39,7 +39,38 @@
   </div>
 </template>
 <script>
+import { db } from "../firebase/db";
 export default {
-    name: 'CardCreate'
-}
+  name: "CardCreate",
+  data: () => ({
+    drawer: null,
+    inpSocial: "",
+    inpFantasia: "",
+    inpCnpj: "",
+    checkXml: false,
+    checkSintegra: false,
+    checkProc: false,
+    show: false,
+    dialog: false,
+    page: "",
+  }),
+  methods: {
+    async addTask() {
+       await db.collection("Todos").add({
+        rsocial: this.inpSocial,
+        nfantasia: this.inpFantasia,
+        cnpj: this.inpCnpj,
+        docxml: this.checkXml,
+        sintegra: this.checkSintegra,
+        proc: this.checkProc,
+      });
+      this.inpSocial = "";
+      this.inpFantasia = "";
+      this.inpCnpj = "";
+      this.checkXml = false;
+      this.checkSintegra = false;
+      this.checkProc = false;
+    },
+  },
+};
 </script>

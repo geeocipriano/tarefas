@@ -6,22 +6,22 @@
           class="ma-2 d-flex justify-space-between"
           color="#292D30"
           dark
-          v-for="task in tasks"
-          v-bind:key="task.id"
+          v-for="Todo in Todos"
+          v-bind:key="Todo.id"
         >
           <div class="d-flex align-center">
-            <div>
-              <v-card-title class="text-h6"> {{ task.rsocial }} </v-card-title>
-              <v-card-subtitle class="text-caption">{{ task.cnpj }}</v-card-subtitle>
+            <div class="l-side-card">
+              <v-card-title class="text-h6"> {{ Todo.rsocial }} </v-card-title>
+              <v-card-subtitle class="text-caption">{{ Todo.cnpj }}</v-card-subtitle>
             </div>
             <v-divider vertical class="mx-3"></v-divider>
-            <v-card-subtitle>{{ task.nfantasia }}</v-card-subtitle>
+            <v-card-subtitle>{{ Todo.nfantasia }}</v-card-subtitle>
           </div>
 
           <v-card-actions>
-            <v-chip class="ma-2" v-if="task.docxml"> XML </v-chip>
-            <v-chip class="ma-2" v-if="task.sintegra"> Sintegra </v-chip>
-            <v-chip class="ma-2" v-if="task.proc"> Procuração </v-chip>
+            <v-chip class="ma-2" v-if="Todo.docxml"> XML </v-chip>
+            <v-chip class="ma-2" v-if="Todo.sintegra"> Sintegra </v-chip>
+            <v-chip class="ma-2" v-if="Todo.proc"> Procuração </v-chip>
             <v-btn color="orange" class="ml-6">
               <v-icon>mdi-ballot</v-icon>
             </v-btn>
@@ -32,20 +32,19 @@
   </div>
 </template>
 <script>
+import { db } from "../firebase/db";
 export default {
-  name: 'CardEmpresa',
+  name: "CardEmpresa",
   data: () => ({
-    tasks: [
-      {
-        id: 1,
-        rsocial: "Correta Soluções Tributarias",
-        nfantasia: "Correta",
-        cnpj: 199000101,
-        docxml: true,
-        sintegra: true,
-        proc: false,
-      },
-    ],
+    Todos: [{}],
   }),
+  firestore: {
+    Todos: db.collection("Todos").orderBy("rsocial","asc"),
+  },
 };
 </script>
+<style>
+.l-side-card{
+  width: 300px;
+}
+</style>

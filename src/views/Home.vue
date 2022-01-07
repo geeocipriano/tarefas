@@ -36,7 +36,7 @@
     <!-- Fim Navbar -->
 
     <v-main>
-      <CardEmpresa  v-if="page=='1'"/>
+      <CardEmpresa />
     </v-main>
   </v-app>
 </template>
@@ -49,36 +49,8 @@ export default {
   components: { CardEmpresa, CardCreate, Tabs },
   data: () => ({
     drawer: null,
-    inpSocial: "",
-    inpFantasia: "",
-    inpCnpj: "",
-    checkXml: false,
-    checkSintegra: false,
-    checkProc: false,
     show: false,
     dialog: false,
-    page: ""
   }),
-  methods: {
-    addTask() {
-      this.tasks.push({
-        rsocial: this.inpSocial,
-        nfantasia: this.inpFantasia,
-        cnpj: this.inpCnpj,
-        docxml: this.checkXml,
-        sintegra: this.checkSintegra,
-        proc: this.checkProc,
-      });
-      this.inpSocial = "";
-      this.inpFantasia = "";
-      this.inpCnpj = "";
-      this.checkXml = false;
-      this.checkSintegra = false;
-      this.checkProc = false;
-    },
-    setPage(){
-      this.page = '1'
-    }
-  },
 };
 </script>
