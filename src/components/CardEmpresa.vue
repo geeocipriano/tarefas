@@ -10,12 +10,11 @@
           v-bind:key="Todo.id"
         >
           <div class="d-flex align-center">
-            <div class="l-side-card">
-              <v-card-title class="text-h6"> {{ Todo.rsocial }} </v-card-title>
+            <div class="l-side-card d-flex flex-column align-center justify-center text-uppercase">
+              <v-card-title class="text-h6 title"> {{ Todo.rsocial }} </v-card-title>
               <v-card-subtitle class="text-caption">{{ Todo.cnpj }}</v-card-subtitle>
             </div>
             <v-divider vertical class="mx-3"></v-divider>
-            <v-card-subtitle>{{ Todo.nfantasia }}</v-card-subtitle>
           </div>
 
           <v-card-actions>
@@ -39,7 +38,7 @@ export default {
     Todos: [{}],
   }),
   firestore: {
-    Todos: db.collection("Todos").orderBy("rsocial","asc"),
+    Todos: db.collection("Todos").orderBy("id","asc"),
   },
 };
 </script>
