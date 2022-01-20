@@ -10,7 +10,9 @@
           v-bind:key="Todo.id"
         >
           <div class="d-flex align-center">
-            <div class="l-side-card d-flex flex-column align-center justify-center text-uppercase">
+            <div
+              class="l-side-card d-flex flex-column align-center justify-center text-uppercase"
+            >
               <v-card-title class="text-h6 title"> {{ Todo.rsocial }} </v-card-title>
               <v-card-subtitle class="text-caption">{{ Todo.cnpj }}</v-card-subtitle>
             </div>
@@ -27,23 +29,29 @@
           </v-card-actions>
         </v-card>
       </v-col>
+      <div class="text-center">
+        <v-pagination v-model="page" :length="pages" @input="onPageChange"></v-pagination>
+      </div>
     </v-row>
   </div>
 </template>
 <script>
-import { db } from "../firebase/db";
 export default {
   name: "CardEmpresa",
   data: () => ({
     Todos: [{}],
+    page: 1,
+    total: 0,
+    pages: 0,
+    perPage: 2,
   }),
-  firestore: {
-    Todos: db.collection("Todos").orderBy("id","asc"),
+  created() {
+    this.getData();
   },
 };
 </script>
 <style>
-.l-side-card{
+.l-side-card {
   width: 300px;
 }
 </style>

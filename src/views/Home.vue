@@ -1,20 +1,27 @@
 <template>
   <v-app id="inspire" style="background: #202427">
-    <!-- Inicio Sidebar -->
     <v-navigation-drawer v-model="drawer" app color="#292D30">
       <v-list dense nav>
-        <v-list-tem class="d-flex">
+        <v-list-item class="d-flex">
           <v-list-item-avatar>
             <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
           </v-list-item-avatar>
           <v-list-item-title style="color: white">John Leider</v-list-item-title>
-        </v-list-tem>
-        <Tabs />
+        </v-list-item>
+
+        <v-list-item v-for="item in items" :key="item.title" link style="color: #f78812">
+          <v-list-item-icon>
+            <v-icon color="#F78812">{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+          <router-link :to="item.route" style="text-decoration: none !important">
+            <v-list-item-content style="color: #f78812">
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+          </router-link>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <!-- Fim Sidebar -->
 
-    <!-- Incio Navbar -->
     <v-app-bar app color="#292D30" dark>
       <v-col cols="6" class="d-flex align-center">
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
@@ -33,24 +40,39 @@
         </v-btn>
       </v-col>
     </v-app-bar>
-    <!-- Fim Navbar -->
 
     <v-main>
-      <CardEmpresa />
+      <div class="d-flex flex-column justify-space-between task-list">
+        <router-view></router-view>
+      </div>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import CardEmpresa from "../components/CardEmpresa.vue";
 import CardCreate from "../components/CardCreate.vue";
-import Tabs from "../components/Tabs.vue";
 export default {
-  components: { CardEmpresa, CardCreate, Tabs },
+  components: { CardCreate },
   data: () => ({
     drawer: null,
     show: false,
     dialog: false,
+    items: [
+      {
+        title: "Executando",
+        icon: "mdi-view-dashboard",
+        color: "#F78812",
+        route: "/home/complete",
+      },
+      { title: "Concluidas", icon: "mdi-image", route: "/home/complete" },
+      { title: "Tarefas", icon: "mdi-help-box", route: "/home/complete" },
+    ],
   }),
 };
 </script>
+<style>
+.task-list {
+  list-style: none;
+  height: 90vh;
+}
+</style>

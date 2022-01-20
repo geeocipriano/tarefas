@@ -32,7 +32,6 @@
   </div>
 </template>
 <script>
-import { db } from "../firebase/db";
 export default {
   name: "CardCreate",
   data: () => ({
@@ -43,22 +42,5 @@ export default {
     checkSintegra: false,
     checkProc: false,
   }),
-  methods: {
-    async addTask() {
-       await db.collection("Todos").add({
-        id: this.inpId++,
-        rsocial: this.inpSocial,
-        cnpj: this.inpCnpj,
-        docxml: this.checkXml,
-        sintegra: this.checkSintegra,
-        proc: this.checkProc,
-      });
-      this.inpSocial = "";
-      this.inpCnpj = "";
-      this.checkXml = false;
-      this.checkSintegra = false;
-      this.checkProc = false;
-    },
-  },
 };
 </script>
