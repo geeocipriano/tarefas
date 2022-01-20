@@ -55,6 +55,8 @@ export default {
       .catch((error) => {
         console.error("Erro", error)
       })
+      this.inpSocial='',
+      this.inpCnpj=''
     }
   }
 };
