@@ -24,23 +24,38 @@
       <v-card-actions>
         <v-spacer></v-spacer>
 
-        <v-btn color="warning" dark  v-on:click="addTask">
-          Salvar
-        </v-btn>
+        <v-btn color="warning" dark v-on:click="createCompany"> Salvar </v-btn>
       </v-card-actions>
     </v-card>
   </div>
 </template>
 <script>
+import {db} from "../firebase/fireconfig";
 export default {
   name: "CardCreate",
   data: () => ({
-    inpId: 0,
     inpSocial: "",
     inpCnpj: "",
     checkXml: false,
     checkSintegra: false,
     checkProc: false,
   }),
+  methods: {
+    createCompany(){
+      db.collection("company").add({
+        razaoSocial: this.inpSocial,
+        cnpjEmpresa: this.inpCnpj,
+        xmlEmpresa: this.checkXml,
+        sintegraEmpresa: this.checkSintegra,
+        procuracaoEmpresa: this.checkProc
+      })
+      .then(() =>{
+        console.log("Deu Certo")
+      })
+      .catch((error) => {
+        console.error("Erro", error)
+      })
+    }
+  }
 };
 </script>
