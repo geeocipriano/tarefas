@@ -6,47 +6,62 @@
           class="ma-2 d-flex justify-space-between"
           color="#292D30"
           dark
-          v-for="Todo in Todos"
-          v-bind:key="Todo.id"
+          v-for="comp in CompanyList"
+          :key="comp.id"
         >
           <div class="d-flex align-center">
             <div
               class="l-side-card d-flex flex-column align-center justify-center text-uppercase"
             >
-              <v-card-title class="text-h6 title"> {{ Todo.rsocial }} </v-card-title>
-              <v-card-subtitle class="text-caption">{{ Todo.cnpj }}</v-card-subtitle>
+              <v-card-title class="text-h6 title"> {{ comp.razaoSocial }} </v-card-title>
+              <v-card-subtitle class="text-caption">{{ comp.cnpj }}</v-card-subtitle>
             </div>
             <v-divider vertical class="mx-3"></v-divider>
           </div>
 
           <v-card-actions>
-            <v-chip class="ma-2" v-if="Todo.docxml"> XML </v-chip>
-            <v-chip class="ma-2" v-if="Todo.sintegra"> Sintegra </v-chip>
-            <v-chip class="ma-2" v-if="Todo.proc"> Procuração </v-chip>
+            <v-chip class="ma-2"> XML </v-chip>
+            <v-chip class="ma-2"> Sintegra </v-chip>
+            <v-chip class="ma-2"> Procuração </v-chip>
             <v-btn color="orange" class="ml-6">
               <v-icon>mdi-ballot</v-icon>
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
-      <div class="text-center">
-        <v-pagination v-model="page" :length="pages" @input="onPageChange"></v-pagination>
-      </div>
     </v-row>
   </div>
 </template>
 <script>
+import { db } from "../firebase/fireconfig";
 export default {
   name: "CardEmpresa",
   data: () => ({
-    Todos: [{}],
-    page: 1,
-    total: 0,
-    pages: 0,
-    perPage: 2,
+    CompanyList: [],
+    razaoSocial:'',
   }),
-  created() {
-    this.getData();
+  methods: {
+    readCompany(){
+      let CompanyList = [];
+      db.collection("company")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          CompanyList.push({
+            id: doc.id,
+            razaoSocial: doc.data().razaoSocial
+          });
+          console.log(CompanyList.length)
+        });
+        return CompanyList
+      })
+      .catch((error) => {
+        console.log("Erro ao buscar documentos", error)
+      })
+    }
+  },
+  mounted() {
+    this.readCompany()
   },
 };
 </script>
